@@ -21,7 +21,7 @@ Simply putting non-combatant castle companions (IDs $\ge 83$) into the bathhouse
 
 #### A. Fatal Null-Dereference Crash (`0x182016059` in `CreateFuroChara`)
 When entering the bathhouse, `EventOverlayClass.f_main$$CreateFuroChara` queries character graphics metadata by calling `G2_SYS.G2_gra_dat(pcno)`.
-- For combatants (IDs `0 .. 82`), `G2_gra_dat` returns a fully initialized `P_GRAPH_DATA` object containing `field_data` (`PLAYER_FIELD`) and `battle_data` (`PLAYER_BATTLE`).
+- For combatants (IDs `0 .. 82`), `G2_gra_dat` returns a fully initialized                `P_GRAPH_DATA` object containing                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           `field_data`                                 (`PLAYER_FIELD`) and `battle_data` (`PLAYER_BATTLE`).
 - For non-combatant NPCs (IDs $\ge 83$), `G2_gra_dat` returns either `null` or an object where `field_data` and `battle_data` are null.
 - `CreateFuroChara` immediately attempts to read animation offsets from `battle_data` without null-checking, triggering an instant native memory access violation crash (`c0000005` at address `0x182016059`), crashing the game to desktop.
 
