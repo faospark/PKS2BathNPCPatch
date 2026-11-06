@@ -32,6 +32,7 @@ public static class NPCBathVisitorPatch
     public static readonly HashSet<byte> FemaleCharaIds = new HashSet<byte>
     {
         // Playable / Combat females
+        4,   // Viki (player_vik / player_rye)
         8,   // Tengaar (player_ten)
         12,  // Valeria (player_val / player_val_d)
         14,  // Karen (player_rol)
@@ -49,7 +50,7 @@ public static class NPCBathVisitorPatch
         46,  // Oulan (player_ora)
         55,  // Nina (player_nia)
         57,  // Tomo (player_stk)
-        60,  // Viki (player_rye)
+        60,  // Lo Wen
         68,  // Wakaba (player_lfi)
         71,  // Rulodia (player_ksd)
         73,  // Kasumi alternate (player_ksm / player_ksm_d)
@@ -163,7 +164,7 @@ public static class NPCBathVisitorPatch
     /// Corrects character gender classification for castle bathhouse separation (GetFuroPos).
     /// Returns 1 (Female) for all true canonical females (routes to women's tub 6..11).
     /// Returns 0 (Male) for all males (routes to men's tub 0..5), fixing Konami vanilla data bugs
-    /// where male characters like Bob (ID 4), Chaco (ID 17), Kiba (ID 87), and Alex (ID 95)
+    /// where male characters like Bob (ID 40), Chaco (ID 54), Kiba (ID 87), and Alex (ID 95)
     /// were incorrectly flagged as female in ckd_info.
     /// </summary>
     [HarmonyPatch(typeof(GSD2::EventOverlayClass.f_main), nameof(GSD2::EventOverlayClass.f_main.GetSeibetu))]
