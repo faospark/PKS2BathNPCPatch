@@ -28,35 +28,9 @@ public static class NPCBathVisitorPatch
 
     private static GSD2::P_GRAPH_DATA _dummyGraphData = null;
 
-    // All canonically female characters in Suikoden 2 (Ground truth mapped from player_*.json, ckd_info, and hp_furo atlases)
-    public static readonly HashSet<byte> FemaleCharaIds = new HashSet<byte>
+    // Castle recruit, convoy, and facility female NPCs with authentic bath sprites in hp_furo_XX_atlas
+    public static readonly HashSet<byte> FemaleCastleNPCsSet = new HashSet<byte>
     {
-        // Playable / Combat females
-        4,   // Viki (player_vik / player_rye)
-        8,   // Tengaar (player_ten)
-        12,  // Valeria (player_val / player_val_d)
-        14,  // Karen (player_rol)
-        18,  // Nanami (player_nan / player_nan_d)
-        19,  // Eilie (player_air / player_air_d)
-        20,  // Rina (player_ryn)
-        23,  // Hanna (player_han)
-        24,  // Millie (player_mil)
-        25,  // Meg (player_kal)
-        39,  // Anita (player_ani)
-        41,  // Kasumi (player_kks)
-        42,  // Sierra (vanilla hardcoded female)
-        43,  // Ayda (player_ada)
-        45,  // Sierra (player_sie / player_sie_d)
-        46,  // Oulan (player_ora)
-        55,  // Nina (player_nia)
-        57,  // Tomo (player_stk)
-        60,  // Lo Wen
-        68,  // Wakaba (player_lfi)
-        71,  // Rulodia (player_ksd)
-        73,  // Kasumi alternate (player_ksm / player_ksm_d)
-        83,  // Mikumiku (player_mi2)
-
-        // Castle Recruit / Convoy / Facility females with authentic bath sprites
         84,  // Apple (npc_84)
         85,  // Apple
         91,  // Leona
@@ -72,6 +46,26 @@ public static class NPCBathVisitorPatch
         123, // Pilika
         172  // Elza (player_eri_d)
     };
+
+    // Backward-compatibility alias
+    public static HashSet<byte> FemaleCharaIds => FemaleCastleNPCsSet;
+
+    /// <summary>
+    /// Checks whether a character ID is female.
+    /// Defers directly to vanilla native GetSeibetu for playable characters (0..83),
+    /// and uses FemaleCastleNPCsSet for castle NPCs (>= 84).
+    /// </summary>
+    public static bool IsFemale(byte charaId)
+    {
+        try
+        {
+            return GSD2::EventOverlayClass.f_main.GetSeibetu(charaId) == 1;
+        }
+        catch
+        {
+            return FemaleCastleNPCsSet.Contains(charaId);
+        }
+    }
 
     // Recruited castle female NPCs with authentic bath sprites in hp_furo_XX_atlas
     public static readonly byte[] FemaleCastleNPCs = new byte[]
@@ -162,25 +156,24 @@ public static class NPCBathVisitorPatch
 
     /// <summary>
     /// Corrects character gender classification for castle bathhouse separation (GetFuroPos).
-    /// Returns 1 (Female) for all true canonical females (routes to women's tub 6..11).
-    /// Returns 0 (Male) for all males (routes to men's tub 0..5), fixing Konami vanilla data bugs
-    /// where male characters like Bob (ID 40), Chaco (ID 54), Kiba (ID 87), and Alex (ID 95)
-    /// were incorrectly flagged as female in ckd_info.
+    /// For playable characters (IDs 0..83), defers directly to vanilla native GetSeibetu.
+    /// For Castle NPC visitors (IDs >= 84), classifies true canonical females into women's tub (1)
+    /// and males into men's tub (0), fixing the vanilla issue where non-combatant NPCs have zeroed ckd_info.
     /// </summary>
     [HarmonyPatch(typeof(GSD2::EventOverlayClass.f_main), nameof(GSD2::EventOverlayClass.f_main.GetSeibetu))]
     [HarmonyPrefix]
     public static bool GetSeibetu_Prefix(int chara_id, ref int __result)
     {
-        // Vincent (ID 64) and Simone (ID 65) possess the special unisex/flamboyant classification (2).
-        // Vanilla's GetFuroPos routes gender 2 to Case 2 (0x18201a861), allowing them to bathe on the women's
-        // side (slots 6..11) when no women are present, or join the men's side when women occupy the women's tub.
-        if (chara_id == 64 || chara_id == 65)
+        // Defer all playable party characters (IDs 0..83) to vanilla's native GetSeibetu.
+        // Vanilla natively handles all combatants, including Viki (4), Tomo (17), Bob (40),
+        // Chaco (54), Hoi (71), Rulodia (75), and Vincent/Simone (64/65).
+        if (chara_id < 84)
         {
-            __result = 2;
-            return false;
+            return true; // Run vanilla native GetSeibetu
         }
 
-        if (FemaleCharaIds.Contains((byte)chara_id))
+        // Intervene only for Castle NPC bath visitors (IDs >= 84)
+        if (FemaleCastleNPCsSet.Contains((byte)chara_id))
         {
             __result = 1; // 1 = Female (routes to women's bath positions 6..11 behind partition)
         }
@@ -313,6 +306,23 @@ public static class NPCBathVisitorPatch
     }
 
     /// <summary>
+    /// Prevents IndexOutOfRangeException in FuroEnd when 8-bather capacity is enabled.
+    /// Vanilla party buffers only allocate 6 combat slots (0..5). When FuroEnd loops through
+    /// active bathers up to slot 7 and calls G2_hoka, slots >= 6 trigger an out-of-bounds error.
+    /// </summary>
+    [HarmonyPatch(typeof(GSD2::G2_SYS), nameof(GSD2::G2_SYS.G2_hoka))]
+    [HarmonyPrefix]
+    public static bool G2_hoka_Prefix(int mode, int pcno, ref int __result)
+    {
+        if (pcno < 0 || pcno >= 6)
+        {
+            __result = 0;
+            return false;
+        }
+        return true;
+    }
+
+    /// <summary>
     /// When bathhouse initialization begins, mark bath state and populate party with convoy / recruited castle NPCs.
     /// </summary>
     [HarmonyPatch(typeof(GSD2::EventOverlayClass.f_main), nameof(GSD2::EventOverlayClass.f_main.FuroInit))]
@@ -326,10 +336,41 @@ public static class NPCBathVisitorPatch
         ActivePartyInBath.Clear();
         _isSpecialVignetteParty = false;
 
+        if (Plugin.Config.DetailedLogs.Value)
+            Plugin.Log.LogInfo($"[NPCBathVisitorPatch] FuroInit: select_furo_no (Bath Style) = {fw?.select_furo_no}.");
+
         if (!Plugin.Config.EnableNPCBathVisitors.Value) return;
 
         IsInsideBath = true;
         PrepareBathParty();
+    }
+
+    /// <summary>
+    /// Diagnostically logs execution of native character bath vignette checks on bath exit.
+    /// In Suikoden 2, bath vignettes are evaluated when selecting "Leave Bath" (FuroPhaseExitFuro00 -> FuroPhaseCheckCharaEvent).
+    /// </summary>
+    [HarmonyPatch(typeof(GSD2::EventOverlayClass.f_phase), nameof(GSD2::EventOverlayClass.f_phase.FuroPhaseCheckCharaEvent))]
+    [HarmonyPrefix]
+    public static void FuroPhaseCheckCharaEvent_Prefix(GSD2::EventOverlayClass.furo_h.FURO_WORK fw)
+    {
+        int count = GSD2::G2_SYS.G2_pamem_num(0);
+        Plugin.Log.LogInfo($"[NPCBathVisitorPatch] FuroPhaseCheckCharaEvent: Player selected Leave Bath. Evaluating native bath vignettes (BathStyle={fw?.select_furo_no}, PartyCount={count})...");
+    }
+
+    [HarmonyPatch(typeof(GSD2::EventOverlayClass.fc_event), nameof(GSD2::EventOverlayClass.fc_event.CheckCharaEvent04))]
+    [HarmonyPostfix]
+    public static void CheckCharaEvent04_Postfix(GSD2::EventOverlayClass.furo_h.FURO_WORK fw, int __result)
+    {
+        int count = GSD2::G2_SYS.G2_pamem_num(0);
+        Plugin.Log.LogInfo($"[NPCBathVisitorPatch] CheckCharaEvent04 (Flik & Viktor Cypress/Jungle Bath) evaluated. Result={__result} (1=Trigger Scene, 0=Skip). BathStyle={fw?.select_furo_no}, PartyCount={count}.");
+    }
+
+    [HarmonyPatch(typeof(GSD2::EventOverlayClass.fc_event), nameof(GSD2::EventOverlayClass.fc_event.CheckCharaEvent00))]
+    [HarmonyPostfix]
+    public static void CheckCharaEvent00_Postfix(GSD2::EventOverlayClass.furo_h.FURO_WORK fw, int __result)
+    {
+        int count = GSD2::G2_SYS.G2_pamem_num(0);
+        Plugin.Log.LogInfo($"[NPCBathVisitorPatch] CheckCharaEvent00 (Flik & Viktor Marble Bath) evaluated. Result={__result} (1=Trigger Scene, 0=Skip). BathStyle={fw?.select_furo_no}, PartyCount={count}.");
     }
 
     /// <summary>
@@ -439,12 +480,17 @@ public static class NPCBathVisitorPatch
             }
         }
 
-        // Flik & Viktor vignette (CheckCharaEvent00 asserts party count == 3)
+        // 1. Flik & Viktor vignette (CheckCharaEvent00 [Marble] & CheckCharaEvent04 [Jungle]: asserts party count == 3)
         if (count == 3 && members.Contains(2) && members.Contains(3))
             return true;
 
-        // Knights of Matilda vignette (CheckCharaEvent01 asserts party count == 4)
-        if (count == 4 && members.Contains(32) && members.Contains(33) && members.Contains(35))
+        // 2. Flik, Viktor & Nina vignette (CheckCharaEvent01 [Rock]: asserts party count == 4)
+        if (count == 4 && members.Contains(2) && members.Contains(3) && members.Contains(55))
+            return true;
+
+        // 3. Heavyweight Muscle Men vignette (CheckCharaEvent03 [Normal]: asserts party count == 4)
+        // Riou + Long Chan-Chan (69), Bolgan (21), Gantetsu (70)
+        if (count == 4 && members.Contains(69) && members.Contains(21) && members.Contains(70))
             return true;
 
         return false;
@@ -490,7 +536,7 @@ public static class NPCBathVisitorPatch
                 if (id > 0)
                 {
                     activeIds.Add(id);
-                    if (FemaleCharaIds.Contains(id))
+                    if (IsFemale(id))
                     {
                         femaleCount++;
                     }
@@ -569,7 +615,7 @@ public static class NPCBathVisitorPatch
                         chaNoArray[i] = chosenId;
                         activeIds.Add(chosenId);
                         ActiveBathVisitors.Add(chosenId);
-                        string genderStr = FemaleCharaIds.Contains(chosenId) ? "Female (Women's tub)" : "Male (Men's tub)";
+                        string genderStr = IsFemale(chosenId) ? "Female (Women's tub)" : "Male (Men's tub)";
                         Plugin.Log.LogInfo($"[NPCBathVisitorPatch] Added castle visitor NPC ID {chosenId} [{genderStr}] to bath slot {i}. Total bathers now: {maleCount + femaleCount} (Men: {maleCount}, Women: {femaleCount}).");
                     }
                 }
