@@ -116,9 +116,9 @@ Forensic inspection of the bathhouse texture atlases (`hp_furo_16` through `hp_f
 
 ### **Valid & Active Castle Visitors**:
 * **Female Pool (12 Recruits)**: Apple (`85`), Leona (`91`), Hilda (`94`), Emilia (`96`), Barbara (`98`), Teresa (`101`), Yuzu (`102`), Taki (`103`), Raura (`111`), Annallee (`112`), Jeane (`116`), Pilika (`123`, static bather).
-* **Male Pool (21 Recruits)**: Templeton (`86`), Kiba (`87`), Fitcher (`88`), Shu (`89`), Tetsu (`90`), Dr. Huan (`92`), Jess (`93`), Alex (`95`), Tenkou (`97`), Richmond (`99`), Tony (`104`), Adlai (`105`), Gordon (`106`), Connell (`108`), Lebrante (`109`), Tessai (`110`), Pico (`113`), Alberto (`114`), Ridley (`117`), Klaus (`118`), Marlowe (`120`).
+* **Male Pool (20 Recruits)**: Templeton (`86`), Kiba (`87`), Fitcher (`88`), Shu (`89`), Tetsu (`90`), Dr. Huan (`92`), Jess (`93`), Alex (`95`), Tenkou (`97`), Richmond (`99`), Tony (`104`), Adlai (`105`), Gordon (`106`), Connell (`108`), Lebrante (`109`), Tessai (`110`), Pico (`113`), Alberto (`114`), Ridley (`117`), Klaus (`118`).
 
 ### **Excluded Characters (Missing / Defective Sprites)**:
-1. **Gilbert (`121`) & Boris (`122`)**: Unpainted purple/slate silhouette blocks in Sheet 24 (no face or hair).
+1. **Marlowe (`120`), Gilbert (`121`), and Boris (`122`)**: Unpainted violet/red silhouette blocks in Sheet 24 (no faces, eyes, or hair).
 2. **Gremio (`125`)**: Reused town NPC head fragment (`person_vi10_00_74_00`) with pink scribbles in Sheet 24 (never drawn by Konami).
 3. **Yam Koo (`100`), Hans (`107`), Jude (`115`), and Maximillian (`119`)**: Missing idle head frames (`v=0..24` has 0 pixels or cut-off fragments in their respective sheets).

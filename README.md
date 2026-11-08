@@ -108,10 +108,9 @@ In the story, Pilika lives in Castle HQ from its founding until the **Muse Peace
 | **114** | **Alberto** | Castle Violinist (Available once recruited) |
 | **117** | **Ridley** | Kobold General (Available once joined) |
 | **118** | **Klaus** | Strategist (Available once recruited) |
-| **120** | **Marlowe** | Greenhill Scholar (Available once joined) |
 
 > **Note on Excluded Characters**:
-> Characters with missing or unfinished head graphics left in the game files by Konami (**Yam Koo [100]**, **Hans [107]**, **Jude [115]**, **Maximillian [119]**, **Gilbert [121]**, **Boris [122]**, and **Gremio [125]**) are omitted from the visitor roster to prevent invisible or glitched models from appearing in the tubs. **Pilika [123]** is included as a special static bather (complete facial art; eye blinking disabled due to incomplete lower frames).
+> Characters with missing or unfinished head graphics left in the game files by Konami (**Yam Koo [100]**, **Hans [107]**, **Jude [115]**, **Maximillian [119]**, **Marlowe [120]**, **Gilbert [121]**, **Boris [122]**, and **Gremio [125]**) are omitted from the visitor roster to prevent invisible or glitched silhouette models from appearing in the tubs. **Pilika [123]** is included as a special static bather (complete facial art; eye blinking disabled due to incomplete lower frames).
 
 ---
 

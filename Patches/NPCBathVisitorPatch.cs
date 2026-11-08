@@ -86,7 +86,7 @@ public static class NPCBathVisitorPatch
 
     // Recruited castle male NPCs with verified, authentic bath sprites in hp_furo_XX_atlas
     // Excluded due to missing/unfinished head graphics or placeholder silhouettes:
-    // Yam Koo (100), Hans (107), Jude (115), Maximillian (119), Gilbert (121), Boris (122), Gremio (125).
+    // Yam Koo (100), Hans (107), Jude (115), Maximillian (119), Marlowe (120), Gilbert (121), Boris (122), Gremio (125).
     public static readonly byte[] MaleCastleNPCs = new byte[]
     {
         86,  // Templeton
@@ -108,8 +108,7 @@ public static class NPCBathVisitorPatch
         113, // Pico
         114, // Alberto
         117, // Ridley
-        118, // Klaus
-        120  // Marlowe
+        118  // Klaus
     };
 
     public static void Initialize(Harmony harmony)

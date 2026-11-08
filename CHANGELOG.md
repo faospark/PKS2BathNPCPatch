@@ -4,6 +4,15 @@ All notable changes to PKS2BathNPCPatch will be documented in this file.
 
 ---
 
+## [1.0.3] - 2026-11-09
+
+### Fixed
+- **Purged Marlowe (`120`) Placeholder Silhouette ([NPCBathVisitorPatch.cs](Patches/NPCBathVisitorPatch.cs))**:
+  - Re-verified Sheet 24 (`hp_furo_24_atlas`): confirmed Marlowe (`120`) is also an unpainted violet/red placeholder silhouette identical to Gilbert (`121`) and Boris (`122`).
+  - Purged Marlowe (`120`) from the active male visitor pool, bringing total excluded unfinished characters to 8 (Yam Koo, Hans, Jude, Maximillian, Marlowe, Gilbert, Boris, Gremio).
+
+---
+
 ## [1.0.2] - 2026-11-08
 
 ### Fixed
