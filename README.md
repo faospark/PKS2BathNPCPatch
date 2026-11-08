@@ -1,4 +1,4 @@
-# PKS2BathNPCPatch (Suikoden II NPC Bathhouse Visitors - Cut Content Restoration)
+# P.K. - Bath NPC Patch
 
 A **BepInEx 6 (IL2CPP)** mod for **Suikoden I & II HD Remaster** (Steam) that restores the cut 1998 PlayStation feature allowing recruited castle companions and NPCs to take a bath with you. It automatically populates unoccupied tub positions with random recruited castle companions, unlocks full 8-character bathhouse capacity, eliminates native engine null-dereference crashes, and enforces canonical gender separation.
 
@@ -114,54 +114,17 @@ In the story, Pilika lives in Castle HQ from its founding until the **Muse Peace
 
 ---
 
-## 💻 Requirements
+## 📦 Installation
 
-1. **Suikoden I & II HD Remaster** (Steam edition, 64-bit Windows)
-2. **BepInEx 6.0 (Unity IL2CPP x64)**
-   - Download **[BepInEx-Unity.IL2CPP-win-x64-6.0.0-pre.2.zip](https://github.com/BepInEx/BepInEx/releases/download/v6.0.0-pre.2/BepInEx-Unity.IL2CPP-win-x64-6.0.0-pre.2.zip)**.
-
----
-
-## 📦 Installation Guide (Steam)
-
-### 1. Locate Game Root Directory
-In your Steam client:
-1. Open your **Library** and right-click **Suikoden I & II HD Remaster**.
-2. Select **Manage** → **Browse local files**.
-3. A file explorer window will open at your game's root directory:
-   ```text
-   ...\steamapps\common\Suikoden I and II HD Remaster\
-   ```
-
-### 2. Install BepInEx 6 (If not already installed)
-1. Download **[BepInEx-Unity.IL2CPP-win-x64-6.0.0-pre.2.zip](https://github.com/BepInEx/BepInEx/releases/download/v6.0.0-pre.2/BepInEx-Unity.IL2CPP-win-x64-6.0.0-pre.2.zip)**.
-2. Extract the contents directly into your **`Suikoden I and II HD Remaster`** root folder.
-3. Launch the game once via Steam and exit to desktop to generate IL2CPP interop folders.
-
-### 3. Install PKS2BathNPCPatch
-1. Place **`PKS2BathNPCPatch.dll`** into your game's BepInEx plugins folder:
-   ```text
-   Suikoden I and II HD Remaster/
-   ├── BepInEx/
-   │   ├── config/
-   │   │   └── faospark.pks2bathnpcpatch.cfg (auto-generated on first launch)
-   │   └── plugins/
-   │       └── PKS2BathNPCPatch.dll
-   ```
-
-### 4. Verify Installation
-Start the game through Steam and check `BepInEx/LogOutput.log`:
-```text
-[Info   :   BepInEx] Loading [PKS2 Bath NPC Patch 1.0.0]
-[Info   :PKS2 Bath NPC Patch] Loading PKS2BathNPCPatch (Suikoden II NPC Bathhouse Sprites & Castle Visitors Restoration)...
-[Info   :PKS2 Bath NPC Patch] PKS2BathNPCPatch loaded successfully!
-```
+- **Prerequisite**: [BepInEx 6.0 (Unity IL2CPP x64)](https://github.com/BepInEx/BepInEx/releases/download/v6.0.0-pre.2/BepInEx-Unity.IL2CPP-win-x64-6.0.0-pre.2.zip) installed in your game root directory.
+- **Install**: Extract the release ZIP directly into your game's root directory (or place `PKS2BathNPCPatch.dll` into `BepInEx/plugins/`).
+- **Verify**: Launch the game; `BepInEx/LogOutput.log` will confirm `[PKS2BathNPCPatch] loaded successfully!`.
 
 ---
 
 ## ⚙️ Configuration Reference
 
-Edit `BepInEx/config/faospark.pks2bathnpcpatch.cfg` with Notepad or any text editor:
+Edit `BepInEx/config/faospark.pks2bathnpcpatch.cfg` with any text editor:
 
 ```ini
 [Suikoden 2 NPC Bath Visitors]
@@ -186,9 +149,10 @@ DetailedLogs = false
 
 ---
 
-## 📜 Credits & Acknowledgements
+## 📜 Credits & Acknowledgments
 
-- **faospark**: Reverse engineering, native IL2CPP crash prevention, and architecture implementation.
-- **d3xMachina**: Creator of `Suikoden Fix`.
-- **Konami**: Original artists and creators of the Suikoden series and bathhouse sprite assets.
-- **Moogles & Mods Community**: Ongoing research and support.
+- **[d3xMachina](https://github.com/d3xMachina/Suikoden-Fix)**: Creator of [Suikoden-Fix](https://github.com/d3xMachina/Suikoden-Fix). Bootstrapped the foundational BepInEx IL2CPP implementation and provided early inspiration for Remaster modding.
+- **[asilverthorn](https://github.com/asilverthorn/suikoden_ref)**: Creator of [suikoden_ref](https://github.com/asilverthorn/suikoden_ref). Invaluable early reference tables, internal IDs, and save structure research.
+- **[faospark](https://github.com/faospark)**: Primary Author & Lead Researcher.
+- **Moogles & Mods Discord Community**: For ongoing support, research, collaboration, and keeping the Suikoden modding scene thriving. Join us on the [Moogles & Mods Discord](https://discord.com/invite/bSnpVBV).
+- **Framework**: [BepInEx](https://github.com/BepInEx/BepInEx) & [HarmonyX](https://github.com/BepInEx/HarmonyX).
