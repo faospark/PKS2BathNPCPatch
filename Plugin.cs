@@ -6,7 +6,7 @@ using PKS2BathNPCPatch.Patches;
 
 namespace PKS2BathNPCPatch;
 
-[BepInPlugin("faospark.pks2bathnpcpatch", "PKS2 Bath NPC Patch", "1.0.1")]
+[BepInPlugin("faospark.pks2bathnpcpatch", "PKS2 Bath NPC Patch", "1.0.2")]
 [BepInDependency("faospark.pkcore", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("d3xMachina.suikoden_fix", BepInDependency.DependencyFlags.SoftDependency)]
 public class Plugin : BasePlugin

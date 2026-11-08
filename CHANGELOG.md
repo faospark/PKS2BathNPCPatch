@@ -4,6 +4,22 @@ All notable changes to PKS2BathNPCPatch will be documented in this file.
 
 ---
 
+## [1.0.2] - 2026-11-08
+
+### Fixed
+- **Audited & Purged Incomplete / Defective Castle NPC Sprites ([NPCBathVisitorPatch.cs](Patches/NPCBathVisitorPatch.cs))**:
+  - Forensically audited all bathhouse sprite texture atlases (`hp_furo_16` through `hp_furo_24`).
+  - Purged 7 characters whose bath sprites were either left unfinished by Konami or lack required idle head frames at `v=0..24`:
+    - **Gilbert (`121`)** & **Boris (`122`)**: Unpainted purple/slate silhouette shapes in Sheet 24 without facial features or hair.
+    - **Gremio (`125`)**: Reused town NPC head fragment with pink placeholder scribbles in Sheet 24 (never drawn by Konami).
+    - **Yam Koo (`100`)**, **Hans (`107`)**, **Jude (`115`)**, and **Maximillian (`119`)**: Missing idle head frames (`v=0..24` has 0 pixels or cut-off fragments).
+  - Retained **Pilika (`123`)** as a special static bather (complete face at `v=0..24` with pink headband; blinking animation omitted).
+- **Log Diagnostics Clarity ([NPCBathVisitorPatch.cs](Patches/NPCBathVisitorPatch.cs))**:
+  - Changed log message from `bath slot {i}` to `party slot {i}` to avoid confusion with physical tub positions (0..5 Men vs 6..11 Women).
+  - Added real-time tracking in `GetFuroPos_Postfix` to log exact tub positions (0..11) and sides (Men's tub vs Women's tub) for every bather.
+
+---
+
 ## [1.0.1] - 2026-11-08
 
 ### Changed

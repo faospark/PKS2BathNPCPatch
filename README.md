@@ -98,23 +98,20 @@ In the story, Pilika lives in Castle HQ from its founding until the **Muse Peace
 | **95** | **Alex** | Item Shopkeeper (Available once recruited) |
 | **97** | **Tenkou** | Window Craftsman (Available once recruited) |
 | **99** | **Richmond** | Private Investigator (Permanent Castle Resident) |
-| **100** | **Yam Koo** | Fisherman (Available once recruited) |
 | **104** | **Tony** | Castle Farmer (Available once recruited) |
 | **105** | **Adlai** | Elevator Inventor (Available once recruited) |
 | **106** | **Gordon** | Castle Appraiser (Available once recruited) |
-| **107** | **Hans** | Castle Armorer (Available once recruited) |
 | **108** | **Connell** | Castle Sound Engineer (Available once recruited) |
 | **109** | **Lebrante** | Castle Appraiser (Available once recruited) |
 | **110** | **Tessai** | Castle Blacksmith (Available once recruited) |
 | **113** | **Pico** | Castle Bard (Available once recruited) |
 | **114** | **Alberto** | Castle Violinist (Available once recruited) |
-| **115** | **Jude** | Castle Sculptor (Available once recruited) |
 | **117** | **Ridley** | Kobold General (Available once joined) |
 | **118** | **Klaus** | Strategist (Available once recruited) |
-| **119** | **Maximillian** | Knight (Available once recruited) |
 | **120** | **Marlowe** | Greenhill Scholar (Available once joined) |
-| **121** | **Gilbert** | Mercenary Captain (Available once recruited) |
-| **122** | **Boris** | Ridley's Son (Available if joined) |
+
+> **Note on Excluded Characters**:
+> Characters with missing or unfinished head graphics left in the game files by Konami (**Yam Koo [100]**, **Hans [107]**, **Jude [115]**, **Maximillian [119]**, **Gilbert [121]**, **Boris [122]**, and **Gremio [125]**) are omitted from the visitor roster to prevent invisible or glitched models from appearing in the tubs. **Pilika [123]** is included as a special static bather (complete facial art; eye blinking disabled due to incomplete lower frames).
 
 ---
 

@@ -84,7 +84,9 @@ public static class NPCBathVisitorPatch
         123  // Pilika
     };
 
-    // Recruited castle male NPCs with authentic bath sprites in hp_furo_XX_atlas
+    // Recruited castle male NPCs with verified, authentic bath sprites in hp_furo_XX_atlas
+    // Excluded due to missing/unfinished head graphics or placeholder silhouettes:
+    // Yam Koo (100), Hans (107), Jude (115), Maximillian (119), Gilbert (121), Boris (122), Gremio (125).
     public static readonly byte[] MaleCastleNPCs = new byte[]
     {
         86,  // Templeton
@@ -97,23 +99,17 @@ public static class NPCBathVisitorPatch
         95,  // Alex
         97,  // Tenkou
         99,  // Richmond
-        100, // Yam Koo
         104, // Tony
         105, // Adlai
         106, // Gordon
-        107, // Hans
         108, // Connell
         109, // Lebrante
         110, // Tessai
         113, // Pico
         114, // Alberto
-        115, // Jude
         117, // Ridley
         118, // Klaus
-        119, // Max
-        120, // Marlowe
-        121, // Gilbert
-        122  // Boris
+        120  // Marlowe
     };
 
     public static void Initialize(Harmony harmony)
@@ -194,8 +190,7 @@ public static class NPCBathVisitorPatch
         CharacterToFuroSlot[chara_id] = __result;
         FuroSlotToCharacter[__result] = chara_id;
         string tubSide = (__result >= 6 && __result <= 11) ? "Women's tub" : "Men's tub";
-        if (Plugin.Config.DetailedLogs.Value)
-            Plugin.Log.LogInfo($"[NPCBathVisitorPatch] GetFuroPos: Character ID {chara_id} placed in slot {__result} ({tubSide}).");
+        Plugin.Log.LogInfo($"[NPCBathVisitorPatch] GetFuroPos: Character ID {chara_id} placed in tub position {__result} ({tubSide}).");
     }
 
     /// <summary>
@@ -616,7 +611,7 @@ public static class NPCBathVisitorPatch
                         activeIds.Add(chosenId);
                         ActiveBathVisitors.Add(chosenId);
                         string genderStr = IsFemale(chosenId) ? "Female (Women's tub)" : "Male (Men's tub)";
-                        Plugin.Log.LogInfo($"[NPCBathVisitorPatch] Added castle visitor NPC ID {chosenId} [{genderStr}] to bath slot {i}. Total bathers now: {maleCount + femaleCount} (Men: {maleCount}, Women: {femaleCount}).");
+                        Plugin.Log.LogInfo($"[NPCBathVisitorPatch] Added castle visitor NPC ID {chosenId} [{genderStr}] to party slot {i}. Total bathers now: {maleCount + femaleCount} (Men: {maleCount}, Women: {femaleCount}).");
                     }
                 }
             }
