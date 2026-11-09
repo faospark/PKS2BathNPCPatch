@@ -1,4 +1,4 @@
-# P.K. - Bath NPC Patch
+﻿# P.K. - Bath NPC Patch
 
 A **BepInEx 6 (IL2CPP)** mod for **Suikoden I & II HD Remaster** (Steam) that restores the cut 1998 PlayStation feature allowing recruited castle companions and NPCs to take a bath with you. It automatically populates unoccupied tub positions with random recruited castle companions, unlocks full 8-character bathhouse capacity, eliminates native engine null-dereference crashes, and enforces canonical gender separation.
 
@@ -156,3 +156,9 @@ DetailedLogs = false
 - **[faospark](https://github.com/faospark)**: Primary Author & Lead Researcher.
 - **Moogles & Mods Discord Community**: For ongoing support, research, collaboration, and keeping the Suikoden modding scene thriving. Join us on the [Moogles & Mods Discord](https://discord.com/invite/bSnpVBV).
 - **Framework**: [BepInEx](https://github.com/BepInEx/BepInEx) & [HarmonyX](https://github.com/BepInEx/HarmonyX).
+
+---
+
+## License
+
+Distributed under the [MIT License](LICENSE).
