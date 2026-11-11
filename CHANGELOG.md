@@ -4,6 +4,15 @@ All notable changes to PKS2BathNPCPatch will be documented in this file.
 
 ---
 
+## [1.0.4] - 2026-11-09
+
+### Fixed
+- **Purged Tony (`104`) Duplicate Sprite ([NPCBathVisitorPatch.cs](Patches/NPCBathVisitorPatch.cs))**:
+  - Identified via live ImGui Bathhouse Telemetry that Tony (`104`) has no authentic bath head sprite in Konami's atlas assets and erroneously rendered Taki's (`103`) bonnet head graphic inside the Men's Tub.
+  - Purged Tony (`104`) from the active male castle visitor pool (`MaleCastleNPCs`), resolving the duplicate Taki glitch.
+
+---
+
 ## [1.0.3] - 2026-11-09
 
 ### Fixed

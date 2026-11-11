@@ -86,7 +86,7 @@ public static class NPCBathVisitorPatch
 
     // Recruited castle male NPCs with verified, authentic bath sprites in hp_furo_XX_atlas
     // Excluded due to missing/unfinished head graphics or placeholder silhouettes:
-    // Yam Koo (100), Hans (107), Jude (115), Maximillian (119), Marlowe (120), Gilbert (121), Boris (122), Gremio (125).
+    // Tony (104), Yam Koo (100), Hans (107), Jude (115), Maximillian (119), Marlowe (120), Gilbert (121), Boris (122), Gremio (125).
     public static readonly byte[] MaleCastleNPCs = new byte[]
     {
         86,  // Templeton
@@ -99,7 +99,6 @@ public static class NPCBathVisitorPatch
         95,  // Alex
         97,  // Tenkou
         99,  // Richmond
-        104, // Tony
         105, // Adlai
         106, // Gordon
         108, // Connell
