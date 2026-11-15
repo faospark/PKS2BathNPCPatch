@@ -1,4 +1,4 @@
-﻿# P.K. - Bath NPC Patch
+# P.K. - Bath NPC Patch
 
 **By [faospark](https://github.com/faospark)**
 
