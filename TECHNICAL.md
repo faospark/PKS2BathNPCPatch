@@ -84,3 +84,13 @@ In *Suikoden II*, recruiting **Tetsu** unlocks the Dunan Castle Bathhouse. Konam
 | **118** | **Klaus** | Once recruited |
 
 > **Excluded Characters:** Yam Koo (`100`), Hans (`107`), Jude (`115`), Maximillian (`119`), Marlowe (`120`), Gilbert (`121`), Boris (`122`), and Gremio (`125`) are excluded due to missing/unfinished head graphics in the game files. Pilika (`123`) is included with eye blinking disabled due to incomplete lower frames.
+
+---
+
+## 5. Configuration Reference (`BepInEx/config/faospark.pks2bathnpcpatch.cfg`)
+
+| Section | Option | Default | Description |
+|---|---|---:|---|
+| `Suikoden 2 NPC Bath Visitors` | `EnableNPCBathVisitors` | `true` | Fill unoccupied bathhouse slots with recruited castle companions. |
+| `Suikoden 2 NPC Bath Visitors` | `EnableEightBatherCapacity` | `true` | Unlock 8-bather capacity (+2 companions with a full 6-character party). |
+| `Diagnostics` | `DetailedLogs` | `false` | Log tub assignments, slot placement, and party restoration in `LogOutput.log`. |
