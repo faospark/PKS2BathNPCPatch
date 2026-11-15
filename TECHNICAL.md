@@ -89,8 +89,11 @@ In *Suikoden II*, recruiting **Tetsu** unlocks the Dunan Castle Bathhouse. Konam
 
 ## 5. Configuration Reference (`BepInEx/config/faospark.pks2bathnpcpatch.cfg`)
 
-| Section | Option | Default | Description |
-|---|---|---:|---|
-| `Suikoden 2 NPC Bath Visitors` | `EnableNPCBathVisitors` | `true` | Fill unoccupied bathhouse slots with recruited castle companions. |
-| `Suikoden 2 NPC Bath Visitors` | `EnableEightBatherCapacity` | `true` | Unlock 8-bather capacity (+2 companions with a full 6-character party). |
-| `Diagnostics` | `DetailedLogs` | `false` | Log tub assignments, slot placement, and party restoration in `LogOutput.log`. |
+```ini
+[Suikoden 2 NPC Bath Visitors]
+EnableNPCBathVisitors = true        # Fill unoccupied bathhouse slots with recruited castle companions
+EnableEightBatherCapacity = true    # Unlock 8-bather capacity (+2 companions with a full 6-character party)
+
+[Diagnostics]
+DetailedLogs = false                # Log tub assignments, slot placement, and party restoration in LogOutput.log
+```
